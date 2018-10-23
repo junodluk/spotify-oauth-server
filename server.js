@@ -3,7 +3,7 @@
  * This is useful for keeping Heroku instances online.
  */
 if (!!process.env.NEW_RELIC_LICENSE_KEY) {
-    require('newrelic');
+    require('./app/newrelic');
 }
 
 if (
@@ -24,7 +24,7 @@ if (
 var express = require('express');
 var url = require('url');
 var request = require('request');
-var encrpytion = require('./encryption.js');
+var encrpytion = require('./app/encryption.js');
 
 var app = express();
 
