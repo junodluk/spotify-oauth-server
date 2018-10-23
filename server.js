@@ -123,7 +123,7 @@ app.post('/refresh', function (req, res, next) {
  * endpoint for the service.
  */
 app.get('/', function (req, res, next) {
-    res.send('Hello world!');
+    res.send('Hello world! ' + authorizationHeader);
     next();
 });
 
