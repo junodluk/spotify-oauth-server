@@ -9,12 +9,12 @@ if (!!process.env.NEW_RELIC_LICENSE_KEY) {
 if (
     !process.env.CLIENT_ID ||
         !process.env.CLIENT_SECRET ||
-        !process.env.CALLBACK_URI
+        !process.env.CLIENT_CALLBACK_URL
 ) {
     console.log(
         '[' + new Date().toISOString() + ']',
         'Environment variables not set up correctly. Please set CLIENT_ID,' +
-            'CLIENT_SECRET and CALLBACK_URI in the environment this app is running in.' +
+            'CLIENT_SECRET and CLIENT_CALLBACK_URL in the environment this app is running in.' +
             'For help, see README'
     );
 
@@ -35,7 +35,7 @@ var app = express();
  */
 var clientId = process.env.CLIENT_ID;
 var clientSecret = process.env.CLIENT_SECRET;
-var clientCallback = process.env.CALLBACK_URI;
+var clientCallback = process.env.CLIENT_CALLBACK_URL;
 var authString = new Buffer(clientId + ':' + clientSecret).toString('base64');
 var authorizationHeader = 'Basic ' + authString;
 var bodyParser = require('body-parser');
