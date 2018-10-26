@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "heroku:restart": "heroku restart -a spotify-oauth-server",
+    "heroku:build": "git push heroku master",
+    "heroku:log": "heroku logs --tail"
   },
   "repository": {
     "type": "git",
