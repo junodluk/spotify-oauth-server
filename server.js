@@ -4,6 +4,7 @@
  */
 if (!!process.env.NEW_RELIC_LICENSE_KEY) {
     require('./app/newrelic');
+} else {
     console.log('### NO NEW_RELIC_LICENSE_KEY FOUND, SERVER WILL SLEEP AFTER 30min')
 }
 
