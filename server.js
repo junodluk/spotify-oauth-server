@@ -187,18 +187,6 @@ app.use(function (req, res) {
     console.log(parts.join(' '));
 });
 
-const nofavicon = function () {
-    return function (req, res, next) {
-        if (/\/favicon\.?(jpe?g|png|ico|gif)?$/i.test(req.url)) {
-            res.status(404).end();
-        } else {
-            next();
-        }
-    };
-};
-
-app.use(nofavicon());
-
 var server = http.createServer(app);
 
 server.listen(process.env.PORT || 4343, function (err) {
