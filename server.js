@@ -102,17 +102,17 @@ app.post('/exchange', (req, res) => {
         redirect_uri: CLIENT_CALLBACK_URL,
         code: params.code
     })
-    .then(session => {
-        let result = {
-            'access_token': session.access_token,
-            'expires_in': session.expires_in,
-            'refresh_token': encrpytion.encrypt(session.refresh_token)
-        };
-        return res.send(result);
-    })
-    .catch(response => {
-        return res.json(response);
-    });
+        .then(session => {
+            let result = {
+                'access_token': session.access_token,
+                'expires_in': session.expires_in,
+                'refresh_token': encrpytion.encrypt(session.refresh_token)
+            };
+            return res.send(result);
+        })
+        .catch(response => {
+            return res.json(response);
+        });
 });
 
 /**
@@ -134,15 +134,15 @@ app.post('/refresh', (req, res) => {
         grant_type: "refresh_token",
         refresh_token: encrpytion.decrypt(params.refresh_token)
     })
-    .then(session => {
-        return res.status(200).send({
-            "access_token": session.access_token,
-            "expires_in": session.expires_in
+        .then(session => {
+            return res.status(200).send({
+                "access_token": session.access_token,
+                "expires_in": session.expires_in
+            });
+        })
+        .catch(response => {
+            return res.json(response);
         });
-    })
-    .catch(response => {
-        return res.json(response);
-    });
 });
 
 /**
@@ -186,8 +186,20 @@ app.use(function (req, res) {
     console.log(parts.join(' '));
 });
 
+const nofavicon = function () {
+    return function (req, res, next) {
+        if (/\/favicon\.?(jpe?g|png|ico|gif)?$/i.test(req.url)) {
+            res.status(404).end();
+        } else {
+            next();
+        }
+    };
+};
+
+app.use(nofavicon());
+
 var server = http.createServer(app);
- 
+
 server.listen(process.env.PORT || 4343, function (err) {
-  console.log('[' + new Date().toISOString() + ']', 'Spotify token exchange app listening on port ', process.env.PORT || 4343);
+    console.log('[' + new Date().toISOString() + ']', 'Spotify token exchange app listening on port ', process.env.PORT || 4343);
 });
