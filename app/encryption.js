@@ -1,6 +1,6 @@
-var crypto = require('crypto');
+var CryptoJS = require('crypto-js');
 var randomstring = require('randomstring');
-var encSecret = process.env.ENCRYPTION_SECRET || randomstring.generate(30);
+var ENCRYPTION_SECRET = process.env.ENCRYPTION_SECRET || randomstring.generate(30);
 
 /**
  * Uses encryption secret defined in environment to encrypt
@@ -12,10 +12,7 @@ var encSecret = process.env.ENCRYPTION_SECRET || randomstring.generate(30);
  * return String The encrypted string
  */
 module.exports.encrypt = function (text) {
-    var cipher = crypto.createCipher('aes-256-ctr', encSecret),
-        crypted = cipher.update(text, 'utf8', 'hex');
-    crypted += cipher.final('hex');
-    return crypted;
+    return CryptoJS.AES.encrypt(text, ENCRYPTION_SECRET).toString();
 };
 
 /**
@@ -28,8 +25,6 @@ module.exports.encrypt = function (text) {
  * return String The decrypted string
  */
 module.exports.decrypt = function (text) {
-    var decipher = crypto.createDecipher('aes-256-ctr', encSecret),
-        dec = decipher.update(text, 'hex', 'utf8');
-    dec += decipher.final('utf8');
-    return dec;
+    var bytes = CryptoJS.AES.decrypt(text, ENCRYPTION_SECRET);
+    return bytes.toString(CryptoJS.enc.Utf8);
 };
