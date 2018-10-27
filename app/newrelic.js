@@ -8,7 +8,7 @@ exports.config = {
     /**
      * Array of application names.
      */
-    app_name: ['Spotify Token Swap'],
+    app_name: ['spotify-oauth-server'],
     /**
      * Your New Relic license key.
      */
