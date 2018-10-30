@@ -151,7 +151,7 @@ app.post('/refresh', (req, res) => {
  * endpoint for the service.
  */
 app.get('/', function (req, res, next) {
-    return res.send('Hello world! ' + AUTH_HEADER);
+    return res.send('SPOTIFY OAUTH TOKEN EXCHANGE SERVER WORKS!!');
 });
 
 /**
